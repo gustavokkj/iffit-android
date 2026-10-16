@@ -1,8 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AndroidAppTemplate</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="title_profile">Profile</string>
-    <string name="title_itens">Itens</string>
+  <string
+    name="app_name">IFFIT</string>
+  <string
+    name="ai_model"
+    translatable="false">gemini-3.5-flash-lite</string>
+  <string
+    name="title_home">Início</string>
+  <string
+    name="title_dashboard">Atividades</string>
+  <string
+    name="title_notifications">Notificações</string>
+  <string
+    name="title_profile">Perfil</string>
+  <string
+    name="dashboard_seu_percurso">Seu percurso</string>
+  <string
+    name="dashboard_cada_registro_conta_uma_parte_da_sua">Cada registro conta uma parte da sua evolução.</string>
+  <string
+    name="dashboard_visao_geral">VISÃO GERAL</string>
+  <string
+    name="dashboard_carregando_atividades">Carregando atividades…</string>
+  <string
+    name="dashboard_atividades_recentes">Atividades recentes</string>
+  <string
+    name="cadastro_usuario_comece_sua_jornada">Comece sua jornada</string>
+  <string
+    name="cadastro_usuario_crie_sua_conta_e_encontre_seu_ritmo">Crie sua conta e encontre seu ritmo.</string>
+  <string
+    name="cadastro_usuario_nome">Nome</string>
+  <string
+    name="cadastro_usuario_e_mail">E-mail</string>
+  <string
+    name="cadastro_usuario_senha">Senha</string>
+  <string
+    name="cadastro_usuario_confirme_a_senha">Confirme a senha</string>
+  <string
+    name="cadastro_usuario_criar_conta">Criar conta</string>
+  <string
+    name="cadastro_usuario_voltar_para_o_login">Voltar para o login</string>
+  <string
+    name="home_vamos_nos_mover">Vamos nos mover?</string>
+  <string
+    name="home_escolha_uma_atividade_e_acompanhe_cada_passo">Escolha uma atividade e acompanhe cada passo no seu ritmo.</string>
+  <string
+    name="home_modalidade">MODALIDADE</string>
+  <string
+    name="home_modalidade_da_atividade">Modalidade da atividade</string>
+  <string
+    name="home_tempo_de_atividade">TEMPO DE ATIVIDADE</string>
+  <string
+    name="home_00_00_00">00:00:00</string>
+  <string
+    name="home_distancia">DISTÂNCIA</string>
+  <string
+    name="home_0_00_km">0,00 km</string>
+  <string
+    name="home_media">MÉDIA</string>
+  <string
+    name="home_">—</string>
+  <string
+    name="home_pronto_para_comecar">Pronto para começar</string>
+  <string
+    name="home_iniciar_atividade">Iniciar atividade</string>
+  <string
+    name="home_finalizar_e_salvar">Finalizar e salvar</string>
+  <string
+    name="home_descartar_gravacao">Descartar gravação</string>
+  <string
+    name="home_a_gravacao_pausa_ao_sair_da_tela">A gravação pausa ao sair da tela ou bloquear o celular.</string>
+  <string
+    name="home_conversar_com_o_assistente_iffit">Conversar com o assistente IFFIT</string>
+  <string
+    name="perfil_usuario_seu_perfil">Seu perfil</string>
+  <string
+    name="perfil_usuario_sua_identidade_seus_numeros_e_o_caminho">Sua identidade, seus números e o caminho que você está construindo.</string>
+  <string
+    name="perfil_usuario_foto_do_atleta">Foto do atleta</string>
+  <string
+    name="perfil_usuario_carregando_estatisticas">Carregando estatísticas…</string>
+  <string
+    name="perfil_usuario_cidade">Cidade</string>
+  <string
+    name="perfil_usuario_modalidade_favorita">Modalidade favorita</string>
+  <string
+    name="perfil_usuario_sobre_voce">Sobre você</string>
+  <string
+    name="perfil_usuario_salvar_alteracoes">Salvar alterações</string>
+  <string
+    name="perfil_usuario_sair_da_conta">Sair da conta</string>
+  <string
+    name="notifications_pequenas_vitorias">Pequenas vitórias</string>
+  <string
+    name="notifications_olhe_para_tras_e_veja_o_quanto">Olhe para trás e veja o quanto você já avançou.</string>
+  <string
+    name="notifications_seus_marcos">SEUS MARCOS</string>
+  <string
+    name="notifications_carregando_conquistas">Carregando conquistas…</string>
+  <string
+    name="notifications_fique_por_dentro">Fique por dentro</string>
+  <string
+    name="notifications_configurar_notificacoes">Configurar notificações</string>
+  <string
+    name="notifications_os_marcos_vem_do_seu_historico_lembretes">Os marcos vêm do seu histórico. Lembretes automáticos ainda não estão disponíveis.</string>
+  <string
+    name="ai_logic_voltar">←  Voltar</string>
+  <string
+    name="ai_logic_vamos_conversar">Vamos conversar</string>
+  <string
+    name="ai_logic_ideias_para_sua_rotina_de_movimento_com">Ideias para sua rotina de movimento, com uma imagem opcional.</string>
+  <string
+    name="ai_logic_o_que_voce_gostaria_de_saber">O que você gostaria de saber?</string>
+  <string
+    name="ai_logic_imagem_selecionada">Imagem selecionada</string>
+  <string
+    name="ai_logic_adicionar_imagem">Adicionar imagem</string>
+  <string
+    name="ai_logic_enviar_pergunta">Enviar pergunta</string>
+  <string
+    name="ai_logic_respostas_geradas_por_ia_podem_conter_erros">Respostas geradas por IA podem conter erros e não substituem orientação profissional.</string>
+  <string
+    name="login_entre_no_seu_ritmo">Entre no seu ritmo.</string>
+  <string
+    name="login_acompanhe_seus_treinos_sua_distancia_e_cada">Acompanhe seus treinos, sua distância e cada nova conquista.</string>
+  <string
+    name="login_entrar">Entrar</string>
+  <string
+    name="login_ou">ou</string>
+  <string
+    name="login_continuar_com_google">Continuar com Google</string>
+  <string
+    name="login_ainda_nao_tem_conta_cadastre_se">Ainda não tem conta? Cadastre-se</string>
+  <string
+    name="firebase_atividades_e_novidades">Atividades e novidades</string>
+  <string
+    name="usuario_nao_foi_possivel_carregar_o_perfil_verifique">Não foi possível carregar o perfil. Verifique a conexão e as regras do Firebase.</string>
+  <string
+    name="usuario_informe_seu_nome">Informe seu nome</string>
+  <string
+    name="usuario_falha_no_perfil">Falha no perfil</string>
+  <string
+    name="usuario_perfil_atualizado">Perfil atualizado.</string>
+  <string
+    name="usuario_nao_foi_possivel_salvar_tente_novamente">Não foi possível salvar. Tente novamente.</string>
+  <string
+    name="login_informe_e_mail_e_senha">Informe e-mail e senha.</string>
+  <string
+    name="login_email_ou_senha_incorretos">Email ou senha incorretos</string>
+  <string
+    name="usuario_por_favor_preencha_todos_os_campos">Por favor, preencha todos os campos</string>
+  <string
+    name="usuario_a_senha_deve_ter_no_minimo_6">A senha deve ter no mínimo 6 caracteres</string>
+  <string
+    name="usuario_as_senhas_nao_coincidem">As senhas não coincidem</string>
+  <string
+    name="usuario_novo_usuario_cadastrado_com_sucesso">Novo usuário cadastrado com sucesso!</string>
+  <string
+    name="usuario_erro_desconhecido">Erro desconhecido</string>
+  <string
+    name="usuario_erro_ao_conectar_com_o_firebase">Erro ao conectar com o Firebase</string>
+  <string
+    name="ai_escreva_uma_pergunta">Escreva uma pergunta.</string>
+  <string
+    name="ai_aguardando_resposta">Aguardando resposta…</string>
+  <string
+    name="ai_voce_e_o_assistente_esportivo_do_iffit">Você é o assistente esportivo do IFFIT. Responda em português, de forma breve e acessível sobre corrida, caminhada, ciclismo e hábitos de treino. Não invente dados de atividades ou acesso ao histórico. Não faça diagnósticos nem prescreva tratamentos. Para dor, lesão ou condições de saúde, recomende orientação profissional.</string>
+  <string
+    name="ai_nenhuma_resposta_recebida">Nenhuma resposta recebida.</string>
+  <string
+    name="ai_o_assistente_esta_indisponivel_confira_a_conexao">O assistente está indisponível. Confira a conexão e a configuração do Firebase AI e tente novamente.</string>
+  <string
+    name="notifications_notificacoes_do_iffit_ativadas">Notificações do IFFIT ativadas.</string>
+  <string
+    name="notifications_notificacoes_desativadas_neste_dispositivo">Notificações desativadas neste dispositivo.</string>
+  <string
+    name="notifications_ativar_notificacoes">Ativar notificações</string>
+  <string
+    name="notifications_seu_primeiro_marco_comeca_com_uma_atividade">Seu primeiro marco começa com uma atividade. Registre e salve seu treino.</string>
+  <string
+    name="dashboard_nenhuma_atividade_ainda_inicie_uma_gravacao_na">Nenhuma atividade ainda. Inicie uma gravação na aba Início.</string>
+  <string
+    name="home_autorize_a_localizacao_precisa_para_registrar_a">Autorize a localização precisa para registrar a distância.</string>
+  <string
+    name="home_finalizar_atividade">Finalizar atividade?</string>
+  <string
+    name="home_o_gps_nao_registrou_distancia_voce_pode">O GPS não registrou distância. Você pode salvar o tempo da atividade com 0 km, sem ritmo médio.</string>
+  <string
+    name="home_salve_a_atividade_para_consultar_seu_desempenho">Salve a atividade para consultar seu desempenho no histórico.</string>
+  <string
+    name="home_continuar_depois">Continuar depois</string>
+  <string
+    name="home_descartar_atividade">Descartar atividade?</string>
+  <string
+    name="home_os_dados_desta_gravacao_serao_perdidos">Os dados desta gravação serão perdidos.</string>
+  <string
+    name="home_nao_foi_possivel_iniciar_o_gps_confira">Não foi possível iniciar o GPS. Confira a localização do celular.</string>
+  <string
+    name="home_registre_pelo_menos_um_segundo_antes_de">Registre pelo menos um segundo antes de salvar.</string>
+  <string
+    name="home_atividade_salva_consulte_a_aba_atividades">Atividade salva! Consulte a aba Atividades.</string>
+  <string
+    name="home_nao_foi_possivel_salvar_no_firebase_confira">Não foi possível salvar no Firebase. Confira a conexão e as regras de atividades da sua conta. Seus dados foram mantidos.</string>
+  <string
+    name="home_atividade_nao_salva">Atividade não salva</string>
+  <string
+    name="home_salvando_aguarde_a_confirmacao_da_conexao">Salvando… Aguarde a confirmação da conexão.</string>
+  <string
+    name="home_buscando_sinal_gps">Buscando sinal GPS…</string>
+  <string
+    name="home_atividade_em_andamento">Atividade em andamento</string>
+  <string
+    name="home_atividade_pausada">Atividade pausada</string>
+  <string
+    name="home_seu_proximo_movimento_comeca_aqui">Seu próximo movimento começa aqui.</string>
+  <string
+    name="common_save">Salvar</string>
+  <string
+    name="common_cancel">Cancelar</string>
+  <string
+    name="common_discard">Descartar</string>
+  <string
+    name="common_close">Fechar</string>
+  <string
+    name="common_understood">Entendi</string>
+  <string
+    name="common_pause">Pausar</string>
+  <string
+    name="common_continue">Continuar</string>
+  <string
+    name="common_saving">Salvando…</string>
+  <string
+    name="history_summary">Esta semana: %1$d atividades • %2$s\nTotal: %3$d atividades • %4$s</string>
+  <string
+    name="history_entry">%1$s • %2$s\n%3$s • %4$s</string>
+  <string
+    name="history_detail">%1$s\n\nDistância: %2$s\nTempo de atividade: %3$s\nMédia: %4$s</string>
+  <string
+    name="profile_stats">%1$d atividades\n%2$s percorridos\n%3$s em atividade</string>
+  <string
+    name="milestones">Primeira atividade concluída!\n\n%1$d atividades registradas\n%2$s acumulados\n\nMaior distância: %3$s</string>
+  <string
+    name="signup_failed">Não foi possível criar sua conta. Confira os dados e a conexão.</string>
+  <string
+    name="verification_sent">Mensagem de verificação enviada para %1$s.</string>
+  <string
+    name="verification_failed">Não foi possível enviar a mensagem de verificação.</string>
+  <string
+    name="profile_name_updated">Nome atualizado.</string>
+  <string
+    name="profile_name_failed">Não foi possível atualizar o nome.</string>
+  <string
+    name="google_failed">Não foi possível entrar com o Google. Tente novamente.</string>
+  <string
+    name="database_load_error">Não foi possível carregar as atividades. Confira a conexão e tente novamente.</string>
+  <string
+    name="database_session_error">Entre na sua conta novamente.</string>
 </resources>

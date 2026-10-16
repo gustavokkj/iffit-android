@@ -1,178 +1,55 @@
 package com.ifpr.androidapptemplate.ui.dashboard
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.StorageReference
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ifpr.androidapptemplate.R
-import com.ifpr.androidapptemplate.baseclasses.Item
+import com.ifpr.androidapptemplate.baseclasses.Metricas
+import com.ifpr.androidapptemplate.data.AtividadesRepository
 import com.ifpr.androidapptemplate.databinding.FragmentDashboardBinding
+import java.text.DateFormat
+import java.util.Calendar
+import java.util.Date
 
-
-class DashboardFragment : Fragment() {
-
-    private var _binding: FragmentDashboardBinding? = null
-
-    private lateinit var itemImageView: ImageView
-    private var imageUri: Uri? = null
-
-    private lateinit var nomeItemEditText: EditText
-
-    private lateinit var tipoItemEditText: EditText
-
-    private lateinit var descricaoItemEditText: EditText
-
-    private lateinit var valorItemEditText: EditText
-
-    //TODO("Declare aqui as outras variaveis do tipo EditText que foram inseridas no layout")
-    private lateinit var salvarButton: Button
-    private lateinit var selectImageButton: Button
-    private lateinit var databaseReference: DatabaseReference
-    private lateinit var storageReference: StorageReference
-    private lateinit var auth: FirebaseAuth
-
-    companion object {
-        private const val PICK_IMAGE_REQUEST = 1
+class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
+    private var binding: FragmentDashboardBinding? = null
+    private var cancel: (() -> Unit)? = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = FragmentDashboardBinding.bind(view)
     }
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        val dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
-
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-
-        val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
-        itemImageView = view.findViewById(R.id.image_item)
-        salvarButton = view.findViewById(R.id.salvarItemButton)
-        selectImageButton = view.findViewById(R.id.button_select_image)
-        nomeItemEditText = view.findViewById(R.id.nomeItemEditText)
-        tipoItemEditText = view.findViewById(R.id.tipoItemEditText)
-        descricaoItemEditText = view.findViewById(R.id.descricaoItemEditText)
-        valorItemEditText = view.findViewById(R.id.valorItemEditText)
-
-        //TODO("Capture aqui os outro campos que foram inseridos no layout. Por exemplo, ate
-        // o momento so foi capturado o endereco (EditText)")
-
-        auth = FirebaseAuth.getInstance()
-
-        selectImageButton.setOnClickListener {
-            openFileChooser()
-        }
-
-        salvarButton.setOnClickListener {
-            salvarItem()
-        }
-
-        return view
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun openFileChooser() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
-    }
-
-    private fun salvarItem() {
-        //TODO("Capture aqui o conteudo que esta nos outros editTexts que foram criados")
-        val nome = nomeItemEditText.text.toString().trim()
-        val tipo = tipoItemEditText.text.toString().trim()
-        val descricao = descricaoItemEditText.text.toString().trim()
-        val valor = valorItemEditText.text.toString().trim()
-
-        if (nome.isEmpty() || tipo.isEmpty() || descricao.isEmpty() || valor.isEmpty() || imageUri == null) {
-            Toast.makeText(context, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        uploadImageToFirestore()
-    }
-
-
-    private fun uploadImageToFirestore() {
-        if (imageUri != null) {
-            val inputStream = context?.contentResolver?.openInputStream(imageUri!!)
-            val bytes = inputStream?.readBytes()
-            inputStream?.close()
-
-            if (bytes != null) {
-                val base64Image = Base64.encodeToString(bytes, Base64.DEFAULT)
-                val nome = nomeItemEditText.text.toString().trim()
-                val tipo = tipoItemEditText.text.toString().trim()
-                val descricao = descricaoItemEditText.text.toString().trim()
-                val valor = valorItemEditText.text.toString().toFloat()
-                //TODO("Capture aqui o conteudo que esta nos outros editTexts que foram criados")
-
-                val item = Item(nome, tipo, descricao, valor, base64Image)
-
-
-                saveItemIntoDatabase(item)
+    override fun onStart() {
+        super.onStart()
+        cancel = AtividadesRepository(requireContext()).observar { items, error ->
+            val b = binding ?: return@observar
+            b.lista.removeAllViews()
+            b.resumo.text = error ?: if (items.isNullOrEmpty()) getString(R.string.dashboard_nenhuma_atividade_ainda_inicie_uma_gravacao_na) else {
+                val start = Calendar.getInstance().apply {
+                    set(Calendar.DAY_OF_WEEK, firstDayOfWeek)
+                    set(Calendar.HOUR_OF_DAY, 0); set(Calendar.MINUTE, 0); set(Calendar.SECOND, 0); set(Calendar.MILLISECOND, 0)
+                }.timeInMillis
+                val week = items.filter { it.inicio >= start }
+                getString(R.string.history_summary, week.size, Metricas.distancia(week.sumOf { it.distanciaMetros }),
+                    items.size, Metricas.distancia(items.sumOf { it.distanciaMetros }))
+            }
+            items?.forEach { item ->
+                val date = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(Date(item.inicio))
+                val button = MaterialButton(requireContext(), null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
+                    text = getString(R.string.history_entry, item.modalidade, date, Metricas.distancia(item.distanciaMetros), Metricas.tempo(item.duracaoSegundos))
+                    isAllCaps = false
+                    setOnClickListener {
+                        val metric = if (item.modalidade == "Ciclismo") Metricas.velocidade(item.duracaoSegundos, item.distanciaMetros)
+                            else Metricas.ritmo(item.duracaoSegundos, item.distanciaMetros)
+                        MaterialAlertDialogBuilder(requireContext()).setTitle(item.modalidade)
+                            .setMessage(getString(R.string.history_detail, date, Metricas.distancia(item.distanciaMetros), Metricas.tempo(item.duracaoSegundos), metric))
+                            .setPositiveButton(getString(R.string.common_close), null).show()
+                    }
+                }
+                b.lista.addView(button)
             }
         }
     }
-
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
-            && data != null && data.data != null
-        ) {
-            imageUri = data.data
-            Glide.with(this).load(imageUri).into(itemImageView)
-        }
-    }
-
-    private fun saveItemIntoDatabase(item: Item) {
-        //TODO("Altere a raiz que sera criada no seu banco de dados do realtime database.
-        // Renomeie a raiz itens")
-        databaseReference = FirebaseDatabase.getInstance().getReference("itens")
-
-        // Cria uma chave unica para o novo item
-        val itemId = databaseReference.push().key
-        if (itemId != null) {
-            databaseReference.child(auth.uid.toString()).child(itemId).setValue(item)
-                .addOnSuccessListener {
-                    Toast.makeText(context, "Item cadastrado com sucesso!", Toast.LENGTH_SHORT)
-                        .show()
-                    requireActivity().supportFragmentManager.popBackStack()
-                }.addOnFailureListener {
-                    Toast.makeText(context, "Falha ao cadastrar o item", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            Toast.makeText(context, "Erro ao gerar o ID do item", Toast.LENGTH_SHORT).show()
-        }
-    }
+    override fun onStop() { cancel?.invoke(); cancel = null; super.onStop() }
+    override fun onDestroyView() { binding = null; super.onDestroyView() }
 }

@@ -32,3 +32,14 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# Local tooling, Firebase emulator logs and private environment files
+node_modules/
+.firebase/
+.env
+.env.*
+!.env.example
+*-firebase-adminsdk-*.json
+service-account*.json
+firebase-debug.log
+database-debug.log

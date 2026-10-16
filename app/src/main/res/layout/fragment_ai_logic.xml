@@ -1,59 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ai_logic_layout"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/iffit_surface"
+  android:fillViewport="true">
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:fitsSystemWindows="true">
-
+    android:paddingStart="28dp"
+    android:paddingTop="30dp"
+    android:paddingEnd="28dp"
+    android:paddingBottom="32dp">
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn_back"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:minHeight="48dp"
+      android:text="@string/ai_logic_voltar"
+      android:textAllCaps="false"
+      android:textColor="@color/iffit_primary" />
     <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+      <View
+        android:layout_width="7dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="11dp"
+        android:background="@drawable/login_brand_mark" />
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.08"
+        android:text="@string/app_name"
+        android:textColor="@color/iffit_primary"
+        android:textSize="21sp" />
+    </LinearLayout>
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="34dp"
+      android:fontFamily="sans-serif-medium"
+      android:text="@string/ai_logic_vamos_conversar"
+      android:textColor="@color/iffit_text"
+      android:textSize="34sp" />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="32dp"
+      android:lineSpacingExtra="3dp"
+      android:text="@string/ai_logic_ideias_para_sua_rotina_de_movimento_com"
+      android:textColor="@color/iffit_muted"
+      android:textSize="15sp" />
+    <com.google.android.material.textfield.TextInputLayout
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="12dp"
+      android:hint="@string/ai_logic_o_que_voce_gostaria_de_saber"
+      app:boxBackgroundColor="@color/iffit_surface"
+      app:boxCornerRadiusBottomEnd="14dp"
+      app:boxCornerRadiusBottomStart="14dp"
+      app:boxCornerRadiusTopEnd="14dp"
+      app:boxCornerRadiusTopStart="14dp">
+      <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/prompt_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="24dp">
-
-        <ImageView
-            android:id="@+id/bitmapImageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@android:drawable/gallery_thumb"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="Selecionar iMagem"/>
-
-        <Button
-            android:id="@+id/btn_select_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Selecionar Imagem"
-            android:layout_marginTop="8dp" />
-
-        <EditText
-            android:id="@+id/prompt_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:gravity="top"
-            android:hint="Digite seu prompt"
-            android:inputType="textMultiLine"
-            android:minHeight="100dp" />
-
-        <Button
-            android:id="@+id/btn_generate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gerar resposta" />
-
-        <TextView
-            android:id="@+id/result_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Resultado aparecerá aqui"
-            android:textSize="16sp" />
-    </LinearLayout>
-</LinearLayout>
+        android:inputType="textMultiLine"
+        android:minHeight="56dp"
+        android:textColor="@color/iffit_text" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <ImageView
+      android:id="@+id/bitmapImageView"
+      android:layout_width="match_parent"
+      android:layout_height="180dp"
+      android:layout_marginBottom="12dp"
+      android:contentDescription="@string/ai_logic_imagem_selecionada"
+      android:scaleType="centerCrop"
+      android:visibility="gone" />
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn_select_image"
+      style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:minHeight="54dp"
+      android:text="@string/ai_logic_adicionar_imagem"
+      android:textAllCaps="false"
+      android:textSize="15sp"
+      app:cornerRadius="16dp"
+      app:strokeColor="@color/iffit_border" />
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/btn_generate"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:minHeight="54dp"
+      android:text="@string/ai_logic_enviar_pergunta"
+      android:textAllCaps="false"
+      android:textSize="15sp"
+      app:cornerRadius="16dp" />
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginVertical="22dp"
+      android:background="@color/iffit_border" />
+    <TextView
+      android:id="@+id/result_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:lineSpacingExtra="5dp"
+      android:textColor="@color/iffit_text"
+      android:textSize="17sp" />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:lineSpacingExtra="3dp"
+      android:text="@string/ai_logic_respostas_geradas_por_ia_podem_conter_erros"
+      android:textColor="@color/iffit_muted"
+      android:textSize="12sp" />
+  </LinearLayout>
+</ScrollView>

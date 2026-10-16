@@ -8,9 +8,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
+import com.google.android.material.button.MaterialButton
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
@@ -29,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var registerLink: TextView
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var btnGoogleSignIn: SignInButton
+    private lateinit var btnGoogleSignIn: MaterialButton
     private lateinit var googleSignInClient: GoogleSignInClient
 
     companion object {
@@ -38,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
@@ -45,14 +47,17 @@ class LoginActivity : AppCompatActivity() {
 
         // Inicializa o Firebase Auth
         firebaseAuth = FirebaseAuth.getInstance()
+        if (firebaseAuth.currentUser != null) {
+            updateUI(firebaseAuth.currentUser)
+            return
+        }
 
         emailEditText = findViewById(R.id.edit_text_email)
         passwordEditText = findViewById(R.id.edit_text_password)
         loginButton = findViewById(R.id.button_login)
         registerLink = findViewById(R.id.registerLink)
-        btnGoogleSignIn = findViewById<SignInButton>(R.id.btnGoogleSignIn)
+        btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn)
 
-        val registerLink: TextView = findViewById(R.id.registerLink)
         registerLink.setOnClickListener {
             val intent: Intent = Intent(
                 applicationContext,
@@ -62,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         loginButton.setOnClickListener {
-            val email = emailEditText.text.toString()
+            val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString()
             signIn(email, password)
         }
@@ -82,6 +87,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun signIn(email: String, password: String) {
+        if (email.isBlank() || password.isBlank()) {
+            Toast.makeText(this, getString(R.string.login_informe_e_mail_e_senha), Toast.LENGTH_SHORT).show()
+            return
+        }
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -89,8 +98,6 @@ class LoginActivity : AppCompatActivity() {
                     updateUI(firebaseAuth.currentUser)
                 } else {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }
             }
@@ -101,10 +108,11 @@ class LoginActivity : AppCompatActivity() {
             // Navegue para a proxima atividade
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
+            finish()
         } else {
             Toast.makeText(
                 applicationContext,
-                "Email ou senha incorretos",
+                getString(R.string.login_email_ou_senha_incorretos),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -126,9 +134,8 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     // Tratar falha de login
                     Log.w(TAG, "signInWithGoogle:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
+                    Toast.makeText(baseContext, getString(R.string.google_failed),
                         Toast.LENGTH_SHORT).show()
-                    updateUI(null)
                 }
             }
     }
@@ -142,7 +149,9 @@ class LoginActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
-                // Tratar falha de login
+                if (resultCode != RESULT_CANCELED) {
+                    Toast.makeText(this, R.string.google_failed, Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

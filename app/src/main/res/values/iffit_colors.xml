@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color
+    name="iffit_primary">#23634B</color>
+  <color
+    name="iffit_dark">#163D30</color>
+  <color
+    name="iffit_background">#F4F6F2</color>
+  <color
+    name="iffit_surface">#FFFFFF</color>
+  <color
+    name="iffit_text">#182B24</color>
+  <color
+    name="iffit_muted">#596B62</color>
+  <color
+    name="iffit_light">#CDE5D6</color>
+  <color
+    name="iffit_border">#DFE7DF</color>
+</resources>

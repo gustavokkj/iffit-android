@@ -1,0 +1,42 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "atividades": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        "$id": {
+          ".validate": "newData.hasChildren(['id', 'usuarioId', 'modalidade', 'inicio', 'duracaoSegundos', 'distanciaMetros'])",
+          "id": {
+            ".validate": "newData.isString() && newData.val() === $id"
+          },
+          "usuarioId": {
+            ".validate": "newData.isString() && newData.val() === $uid"
+          },
+          "modalidade": {
+            ".validate": "newData.val() === 'Corrida' || newData.val() === 'Caminhada' || newData.val() === 'Ciclismo'"
+          },
+          "inicio": {
+            ".validate": "newData.isNumber() && newData.val() > 0"
+          },
+          "duracaoSegundos": {
+            ".validate": "newData.isNumber() && newData.val() >= 1"
+          },
+          "distanciaMetros": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      }
+    }
+  }
+}

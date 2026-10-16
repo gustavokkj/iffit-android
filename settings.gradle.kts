@@ -19,6 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "AndroidAppTemplate"
+rootProject.name = "IFFIT"
 include(":app")
- 

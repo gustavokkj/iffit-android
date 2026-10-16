@@ -1,42 +1,61 @@
 package com.ifpr.androidapptemplate.ui.notifications
 
+import android.Manifest
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.provider.Settings
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.ifpr.androidapptemplate.R
+import com.ifpr.androidapptemplate.baseclasses.Metricas
+import com.ifpr.androidapptemplate.data.AtividadesRepository
 import com.ifpr.androidapptemplate.databinding.FragmentNotificationsBinding
 
-class NotificationsFragment : Fragment() {
+class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
+    private var binding: FragmentNotificationsBinding? = null
+    private var cancel: (() -> Unit)? = null
+    private val permission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { renderPermission() }
 
-    private var _binding: FragmentNotificationsBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
-
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding = FragmentNotificationsBinding.bind(view)
+        binding!!.permitir.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= 33 && !shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) &&
+                !requireContext().getSharedPreferences("iffit", 0).getBoolean("notificationAsked", false)) {
+                requireContext().getSharedPreferences("iffit", 0).edit().putBoolean("notificationAsked", true).apply()
+                permission.launch(Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                val settings = if (Build.VERSION.SDK_INT >= 26) {
+                    Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+                        .putExtra(Settings.EXTRA_APP_PACKAGE, requireContext().packageName)
+                } else {
+                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        android.net.Uri.parse("package:${requireContext().packageName}"))
+                }
+                startActivity(settings)
+            }
         }
-        return root
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onResume() { super.onResume(); renderPermission() }
+    private fun renderPermission() {
+        val enabled = NotificationManagerCompat.from(requireContext()).areNotificationsEnabled()
+        binding?.permissao?.text = if (enabled) getString(R.string.notifications_notificacoes_do_iffit_ativadas) else getString(R.string.notifications_notificacoes_desativadas_neste_dispositivo)
+        binding?.permitir?.text = if (enabled) getString(R.string.notifications_configurar_notificacoes) else getString(R.string.notifications_ativar_notificacoes)
     }
+    override fun onStart() {
+        super.onStart()
+        cancel = AtividadesRepository(requireContext()).observar { items, error ->
+            val activities = items.orEmpty()
+            if (binding == null) return@observar
+            binding?.conquistas?.text = error ?: if (activities.isEmpty())
+                getString(R.string.notifications_seu_primeiro_marco_comeca_com_uma_atividade)
+            else getString(R.string.milestones, activities.size,
+                Metricas.distancia(activities.sumOf { it.distanciaMetros }),
+                Metricas.distancia(activities.maxOf { it.distanciaMetros }))
+        }
+    }
+    override fun onStop() { cancel?.invoke(); cancel = null; super.onStop() }
+    override fun onDestroyView() { binding = null; super.onDestroyView() }
 }

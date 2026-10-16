@@ -1,0 +1,12 @@
+{
+  "name": "iffit-database-tests",
+  "private": true,
+  "scripts": {
+    "test": "firebase emulators:exec --project demo-iffit --only database \"node --test database.test.mjs\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^5.0.0",
+    "firebase": "^12.0.0",
+    "firebase-tools": "^14.0.0"
+  }
+}

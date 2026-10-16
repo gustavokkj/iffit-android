@@ -1,103 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/iffit_surface"
+  android:fillViewport="true">
+  <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
-
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="28dp"
+    android:paddingTop="30dp"
+    android:paddingEnd="28dp"
+    android:paddingBottom="32dp">
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+      <View
+        android:layout_width="7dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="11dp"
+        android:background="@drawable/login_brand_mark" />
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.08"
+        android:text="@string/app_name"
+        android:textColor="@color/iffit_primary"
+        android:textSize="21sp" />
+    </LinearLayout>
     <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:text="Cadastro de Produtos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/image_item"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="32dp"
-        android:contentDescription="Store Photo"
-        android:scaleType="centerCrop"
-        android:src="@android:drawable/gallery_thumb"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_dashboard" />
-
-    <Button
-        android:id="@+id/button_select_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Selecionar Imagem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_item" />
-
-    <EditText
-        android:id="@+id/nomeItemEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:hint="Nome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_select_image" />
-
-    <EditText
-        android:id="@+id/tipoItemEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:hint="Tipo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_select_image" />
-
-    <EditText
-        android:id="@+id/descricaoItemEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
-        android:hint="Descrição"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_select_image" />
-
-    <EditText
-        android:id="@+id/valorItemEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:hint="Valor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_select_image" />
-
-    <Button
-        android:id="@+id/salvarItemButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:text="Salvar"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/valorItemEditText" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="34dp"
+      android:fontFamily="sans-serif-medium"
+      android:text="@string/dashboard_seu_percurso"
+      android:textColor="@color/iffit_text"
+      android:textSize="34sp" />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="32dp"
+      android:lineSpacingExtra="3dp"
+      android:text="@string/dashboard_cada_registro_conta_uma_parte_da_sua"
+      android:textColor="@color/iffit_muted"
+      android:textSize="15sp" />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/dashboard_visao_geral"
+      android:textColor="@color/iffit_muted"
+      android:textSize="12sp"
+      android:letterSpacing="0.1" />
+    <TextView
+      android:id="@+id/resumo"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:lineSpacingExtra="6dp"
+      android:text="@string/dashboard_carregando_atividades"
+      android:textColor="@color/iffit_text"
+      android:textSize="20sp" />
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginVertical="22dp"
+      android:background="@color/iffit_border" />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:fontFamily="sans-serif-medium"
+      android:text="@string/dashboard_atividades_recentes"
+      android:textColor="@color/iffit_text"
+      android:textSize="24sp" />
+    <LinearLayout
+      android:id="@+id/lista"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:orientation="vertical" />
+  </LinearLayout>
+</ScrollView>

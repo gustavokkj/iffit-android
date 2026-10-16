@@ -4,25 +4,21 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.database.DatabaseReference
 import com.ifpr.androidapptemplate.R
 
 
 class CadastroUsuarioActivity  : AppCompatActivity() {
-    private lateinit var textCadastroUsuarioTitle: TextView
     private lateinit var registerNameEditText: EditText
     private lateinit var registerEmailEditText: EditText
     private lateinit var registerPasswordEditText: EditText
     private lateinit var registerConfirmPasswordEditText: EditText
     private lateinit var registerButton: Button
     private lateinit var sairButton: Button
-    private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +28,6 @@ class CadastroUsuarioActivity  : AppCompatActivity() {
         // Inicializa o Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        textCadastroUsuarioTitle = findViewById(R.id.textCadastroUsuarioTitle)
         registerNameEditText = findViewById(R.id.registerNameEditText)
         registerEmailEditText = findViewById(R.id.registerEmailEditText)
         registerPasswordEditText = findViewById(R.id.registerPasswordEditText)
@@ -54,22 +49,22 @@ class CadastroUsuarioActivity  : AppCompatActivity() {
     private fun createAccount() {
         val name = registerNameEditText.text.toString().trim()
         val email = registerEmailEditText.text.toString().trim()
-        val password = registerPasswordEditText.text.toString().trim()
-        val confirmPassword = registerConfirmPasswordEditText.text.toString().trim()
+        val password = registerPasswordEditText.text.toString()
+        val confirmPassword = registerConfirmPasswordEditText.text.toString()
 
         if (name.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT)
+            Toast.makeText(this, getString(R.string.usuario_por_favor_preencha_todos_os_campos), Toast.LENGTH_SHORT)
                 .show()
             return
         }
 
         if (password.length < 6) {
-            Toast.makeText(this, "A senha deve ter no mínimo 6 caracteres", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.usuario_a_senha_deve_ter_no_minimo_6), Toast.LENGTH_SHORT).show()
             return
         }
 
         if (password != confirmPassword) {
-            Toast.makeText(this, "As senhas não coincidem", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.usuario_as_senhas_nao_coincidem), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -79,27 +74,27 @@ class CadastroUsuarioActivity  : AppCompatActivity() {
                     if (task.isSuccessful) {
                         Toast.makeText(
                             this,
-                            "Novo usuário cadastrado com sucesso!",
+                            getString(R.string.usuario_novo_usuario_cadastrado_com_sucesso),
                             Toast.LENGTH_SHORT
                         ).show()
                         val user = auth.currentUser
                         updateProfile(user, name)
                         sendEmailVerification(user)
                     } else {
-                        val errorMessage = task.exception?.message ?: "Erro desconhecido"
+                        val errorMessage = task.exception?.message ?: getString(R.string.usuario_erro_desconhecido)
                         Log.e("FirebaseAuth", "Erro ao cadastrar usuário: $errorMessage")
                         Toast.makeText(
                             this,
-                            "Falha ao cadastrar novo usuário: $errorMessage",
+                            getString(R.string.signup_failed),
                             Toast.LENGTH_LONG
                         ).show()
                     }
                 }
         } catch (ex: Exception) {
-            Log.e("FirebaseAuth", "Erro ao conectar com o Firebase", ex)
+            Log.e("FirebaseAuth", getString(R.string.usuario_erro_ao_conectar_com_o_firebase), ex)
             Toast.makeText(
                 this,
-                "Falha ao conectar com o Firebase: ${ex.message}",
+                getString(R.string.signup_failed),
                 Toast.LENGTH_LONG
             ).show()
         }
@@ -111,11 +106,11 @@ class CadastroUsuarioActivity  : AppCompatActivity() {
         user?.sendEmailVerification()
             ?.addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(baseContext, "Verification email sent to ${user.email}.",
+                    Toast.makeText(baseContext, getString(R.string.verification_sent, user.email.orEmpty()),
                         Toast.LENGTH_SHORT).show()
                     finish()
                 } else {
-                    Toast.makeText(baseContext, "Failed to send verification email.",
+                    Toast.makeText(baseContext, getString(R.string.verification_failed),
                         Toast.LENGTH_SHORT).show()
                 }
             }
@@ -129,10 +124,10 @@ class CadastroUsuarioActivity  : AppCompatActivity() {
         user?.updateProfile(profileUpdates)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(baseContext, "Nome do usuario alterado com sucesso.",
+                    Toast.makeText(baseContext, getString(R.string.profile_name_updated),
                         Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(baseContext, "Não foi possivel alterar o nome do usuario.",
+                    Toast.makeText(baseContext, getString(R.string.profile_name_failed),
                         Toast.LENGTH_SHORT).show()
                 }
             }

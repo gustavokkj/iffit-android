@@ -12,8 +12,8 @@ android {
         applicationId = "com.ifpr.androidapptemplate"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "0.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,10 +42,10 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
+    implementation("androidx.core:core-splashscreen:1.0.1")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
@@ -55,13 +55,9 @@ dependencies {
     implementation(libs.firebase.database.ktx)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
-    implementation(libs.firebase.storage.ktx)
     implementation(libs.play.services.auth)
-    implementation(libs.firebase.firestore.ktx)
-    implementation(libs.firebase.crashlytics.buildtools)
     implementation(libs.firebase.ai)
     implementation(libs.firebase.messaging.ktx)
-    implementation(libs.google.firebase.ai)
 
     implementation(libs.glide)
 
