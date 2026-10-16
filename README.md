@@ -62,8 +62,8 @@ Também é possível editar no VS Code e compilar pelo terminal, com JDK e SDK c
 ### 1. Abrir o projeto
 
 ```bash
-git clone https://github.com/gustavokkj/projeto_mobile.git
-cd projeto_mobile
+git clone https://github.com/gustavokkj/iffit-android.git
+cd iffit-android
 ```
 
 Abra a pasta no Android Studio. O arquivo `local.properties`, com o caminho do SDK, é específico da máquina e não é versionado.
