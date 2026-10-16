@@ -6,9 +6,15 @@
 
 Aplicativo Android para registrar corridas, caminhadas e pedaladas, acompanhar o histórico e consultar a própria evolução.
 
-Inicialmente desenvolvido como uma atividade acadêmica, o projeto foi reestruturado e recebeu pequenas alterações na interface e nas funcionalidades.
+## Sobre o projeto
 
-O nome combina a referência ao Instituto Federal do Paraná com fitness. Este é um projeto pessoal, sem vínculo oficial com o IFPR.
+Este projeto foi desenvolvido originalmente como uma atividade acadêmica no Instituto Federal do Paraná (IFPR). Durante a atividade, diferentes recursos do desenvolvimento Android foram implementados em etapas e organizados em branches, incluindo autenticação, cadastro de dados, localização, inteligência artificial e notificações.
+
+Na versão acadêmica, essas funcionalidades funcionavam como exercícios independentes e ainda não formavam uma proposta única de aplicativo. A localização já era utilizada para acompanhar corridas, enquanto outros módulos exploravam cadastro de produtos e acompanhamento de entregas.
+
+Posteriormente, o repositório foi reestruturado e recebeu pequenas alterações de organização, interface e funcionamento. O acompanhamento de atividades físicas passou a ser o foco do aplicativo; os módulos que não combinavam com essa proposta foram retirados, e os recursos existentes foram reunidos sob a identidade **IFFIT**.
+
+O nome IFFIT combina a referência ao Instituto Federal do Paraná com o termo *fitness*. Este é um projeto pessoal, sem vínculo oficial com o IFPR.
 
 ## Telas
 
